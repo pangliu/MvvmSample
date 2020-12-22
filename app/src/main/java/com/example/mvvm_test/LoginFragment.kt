@@ -38,6 +38,7 @@ class LoginFragment: Fragment() {
     private fun initView() {
         val navController = findNavController(this)
         viewMode.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
+            Log.d("msg", "isLoading: $isLoading")
             if(isLoading) {
                 binding.progress.visibility = View.VISIBLE
             } else {
@@ -45,7 +46,10 @@ class LoginFragment: Fragment() {
             }
         })
         binding.btnLogin.setOnClickListener {
-            viewMode.login(binding.etAccount.text.toString(), binding.etPasswrod.text.toString())
+            // 呼叫 Rxjava api
+//            viewMode.login(binding.etAccount.text.toString(), binding.etPasswrod.text.toString())
+            // 呼叫 Coroutine api
+            viewMode.coroutineLogin(binding.etAccount.text.toString(), binding.etPasswrod.text.toString())
         }
         binding.btnGoTo.setOnClickListener {
             navController.navigate(R.id.action_loginFragment_to_homeFragment)

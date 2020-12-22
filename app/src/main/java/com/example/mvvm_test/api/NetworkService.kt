@@ -21,7 +21,7 @@ class NetworkService {
         const val loginUrl = "https://run.mocky.io/v3/87605dd6-db69-468f-936d-4367e23ad351"
     }
 
-    var memberApi: ApiStores
+    var rxApiStores: ApiStores
 
     init {
         val client = OkHttpClient.Builder()
@@ -37,6 +37,6 @@ class NetworkService {
             .client(client)
             .build()
 
-        memberApi = retrofit.create(ApiStores::class.java)
+        rxApiStores = retrofit.create(ApiStores::class.java)
     }
 }
