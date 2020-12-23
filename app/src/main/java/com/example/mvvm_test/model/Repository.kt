@@ -2,6 +2,7 @@ package com.example.mvvm_test.model
 
 import android.util.Log
 import com.example.mvvm_test.api.CoroutineService
+import com.example.mvvm_test.api.CoroutineStores
 import com.example.mvvm_test.api.NetworkService
 import io.reactivex.Single
 import io.reactivex.annotations.SchedulerSupport.IO
@@ -15,7 +16,7 @@ import kotlinx.coroutines.flow.flowOn
 import okhttp3.Dispatcher
 import retrofit2.Response
 
-class Repository {
+class Repository(private val apiStores: CoroutineStores) {
 
     // 使用 Rxjava2
     fun login(account: String, password: String): Single<LoginResp> {
@@ -32,19 +33,20 @@ class Repository {
     suspend fun coroutineLogin(account: String, password: String): Response<LoginResp> {
         val coroutineService = CoroutineService()
         val request = LoginReq(account, password)
-        var resp = coroutineService.coroutinesApiStores.login(request).await()
+//        var resp = coroutineService.coroutinesApiStores.login(request).await()
+        var resp = apiStores.login(request).await()
         Log.d("msg", "api code: ${resp.code()}")
         Log.d("msg", "api resp: ${resp.body()}")
         return resp
     }
     // 方法二，使用 ViewState & Flow
     fun coroutineLogin2(account: String, password: String): Flow<ViewState<LoginResp>> {
-        val coroutineService = CoroutineService()
+//        val coroutineService = CoroutineService()
         val request = LoginReq(account, password)
         return flow {
             emit(ViewState.loading())
             // 可在此連續呼叫 api
-            val resp = coroutineService.coroutinesApiStores.flowLogin(request)
+            val resp = apiStores.flowLogin(request)
             emit(ViewState.success(resp))
         }.catch {
             emit(ViewState.error(it.message.orEmpty()))

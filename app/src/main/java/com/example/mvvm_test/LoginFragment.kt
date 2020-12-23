@@ -5,16 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment.findNavController
+import com.example.mvvm_test.base.AppInjector
 import com.example.mvvm_test.databinding.FragmentLoginBinding
-import com.example.mvvm_test.mvp_test.LoginContract
 import com.example.mvvm_test.mvvm.LoginViewModel
-import com.example.mvvm_test.mvvm.ViewModelFactory
-import kotlinx.android.synthetic.main.fragment_login.*
 
 
 class LoginFragment: Fragment() {
@@ -31,7 +27,8 @@ class LoginFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("msg", "Login onViewCreated")
-        viewMode = ViewModelProvider(this, ViewModelFactory()).get(LoginViewModel::class.java)
+        viewMode = AppInjector.obtainViewModel(this)
+//        viewMode = ViewModelProvider(this, ViewModelFactory()).get(LoginViewModel::class.java)
         initView()
     }
 

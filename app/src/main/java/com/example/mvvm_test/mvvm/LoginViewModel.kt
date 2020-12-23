@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mvvm_test.base.SharePreferencesProvider
 import com.example.mvvm_test.model.Repository
 import com.example.mvvm_test.model.ViewState
 import io.reactivex.Scheduler
@@ -14,11 +15,11 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 
-class LoginViewModel: ViewModel() {
+class LoginViewModel(val repository: Repository, val preferences: SharePreferencesProvider): ViewModel() {
 
     // 載入中
     var isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
-    var repository = Repository()
+//    var repository = Repository()
 
     // 使用 Rxjava2
     @SuppressLint("CheckResult")

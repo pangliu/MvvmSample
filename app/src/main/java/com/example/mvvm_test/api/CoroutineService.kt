@@ -8,8 +8,22 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 class CoroutineService {
+    companion object {
+        private var mInstance: CoroutineService? = null
+        private lateinit var coroutinesApiStores: CoroutineStores
 
-    var coroutinesApiStores: CoroutineStores
+        fun getInstance(): CoroutineService? {
+            if(mInstance == null) {
+                synchronized(CoroutineService::class) {
+                    if(mInstance == null) {
+                        mInstance = CoroutineService()
+                    }
+                }
+            }
+            return mInstance
+        }
+    }
+
     init {
         val client = OkHttpClient.Builder()
             .connectTimeout(NetworkService.ApiConfig.TIME_OUT_CONNECT.toLong(), TimeUnit.SECONDS)
@@ -26,4 +40,6 @@ class CoroutineService {
 
         coroutinesApiStores = retrofit.create(CoroutineStores::class.java)
     }
+
+    fun getStores(): CoroutineStores = coroutinesApiStores
 }
