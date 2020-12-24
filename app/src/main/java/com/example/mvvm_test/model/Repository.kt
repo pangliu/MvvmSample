@@ -66,4 +66,14 @@ class Repository(private val apiStores: CoroutineStores, private val localDb: Lo
         }.flowOn(Dispatchers.IO)
     }
 
+    fun getAllAccount(): Flow<ViewState<List<AccountEntity>>> {
+        return flow {
+            emit(ViewState.loading())
+            val resp = localDb.accountDao().getAllAccount()
+            emit(ViewState.success(resp))
+        }.catch {
+            emit(ViewState.error(it.message.orEmpty()))
+        }.flowOn(Dispatchers.IO)
+    }
+
 }

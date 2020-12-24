@@ -38,4 +38,26 @@ class HomeViewModel(
             }
         }
     }
+
+    fun getAllAccount() {
+        viewModelScope.launch {
+            repository.getAllAccount().collect { state->
+                when(state) {
+                    is ViewState.Loading->{
+                        isLoading.value = true
+                        Log.d("msg", "get account loading")
+                    }
+                    is ViewState.Success ->{
+                        isLoading.value = false
+                        Log.d("msg", "data: ${state.data}")
+                        Log.d("msg", "get account success")
+                    }
+                    is ViewState.Error -> {
+                        isLoading.value = false
+                        Log.d("msg", "get account failed")
+                    }
+                }
+            }
+        }
+    }
 }

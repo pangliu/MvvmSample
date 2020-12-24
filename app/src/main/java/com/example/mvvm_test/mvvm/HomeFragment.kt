@@ -36,7 +36,8 @@ class HomeFragment: Fragment() {
 
     private fun initView() {
         binding.btnAddAccount.onClick {
-            viewModel.insertAccount("emma", "支出")
+//            viewModel.insertAccount("hank", "收入")
+            viewModel.getAllAccount()
         }
         viewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
             if(isLoading) {

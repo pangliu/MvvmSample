@@ -10,9 +10,12 @@ import androidx.room.Query
 interface AccountDao {
 
     @Query("SELECT * FROM Account where type = :type")
-    fun getAccount(type: String): List<AccountEntity>
+    suspend fun getAccount(type: String): List<AccountEntity>
+
+    @Query("SELECT * FROM Account")
+    suspend fun getAllAccount(): List<AccountEntity>
 
     // 當衝突時不寫入
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    fun insertAccount(account: AccountEntity): Long
+    suspend fun insertAccount(account: AccountEntity): Long
 }
