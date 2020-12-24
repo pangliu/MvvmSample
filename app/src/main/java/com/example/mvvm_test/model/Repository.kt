@@ -4,6 +4,8 @@ import android.util.Log
 import com.example.mvvm_test.api.CoroutineService
 import com.example.mvvm_test.api.CoroutineStores
 import com.example.mvvm_test.api.NetworkService
+import com.example.mvvm_test.room.AccountEntity
+import com.example.mvvm_test.room.LocalDataBase
 import io.reactivex.Single
 import io.reactivex.annotations.SchedulerSupport.IO
 import kotlinx.coroutines.Deferred
@@ -16,7 +18,7 @@ import kotlinx.coroutines.flow.flowOn
 import okhttp3.Dispatcher
 import retrofit2.Response
 
-class Repository(private val apiStores: CoroutineStores) {
+class Repository(private val apiStores: CoroutineStores, private val localDb: LocalDataBase) {
 
     // 使用 Rxjava2
     fun login(account: String, password: String): Single<LoginResp> {
@@ -47,6 +49,17 @@ class Repository(private val apiStores: CoroutineStores) {
             emit(ViewState.loading())
             // 可在此連續呼叫 api
             val resp = apiStores.flowLogin(request)
+            emit(ViewState.success(resp))
+        }.catch {
+            emit(ViewState.error(it.message.orEmpty()))
+        }.flowOn(Dispatchers.IO)
+    }
+
+    fun inserAccount(account: String, type: String): Flow<ViewState<Long>>{
+        val accountEntity = AccountEntity(0, account, type)
+        return flow {
+            emit(ViewState.loading())
+            val resp = localDb.accountDao().insertAccount(accountEntity)
             emit(ViewState.success(resp))
         }.catch {
             emit(ViewState.error(it.message.orEmpty()))

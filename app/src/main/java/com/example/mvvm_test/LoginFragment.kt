@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.mvvm_test.base.AppInjector
+import com.example.mvvm_test.base.invisible
+import com.example.mvvm_test.base.visible
 import com.example.mvvm_test.databinding.FragmentLoginBinding
 import com.example.mvvm_test.mvvm.LoginViewModel
 
@@ -37,9 +39,9 @@ class LoginFragment: Fragment() {
         viewMode.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
             Log.d("msg", "isLoading: $isLoading")
             if(isLoading) {
-                binding.progress.visibility = View.VISIBLE
+                binding.progress.visible()
             } else {
-                binding.progress.visibility = View.INVISIBLE
+                binding.progress.invisible()
             }
         })
         binding.btnLogin.setOnClickListener {

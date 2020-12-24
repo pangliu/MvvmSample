@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.res.Resources
 import androidx.lifecycle.ViewModelProvider
 import com.example.mvvm_test.model.Repository
+import com.example.mvvm_test.room.LocalDataBase
 
 abstract class BaseViewModelFactory: ViewModelProvider.NewInstanceFactory() {
     abstract var mApplication: Application?

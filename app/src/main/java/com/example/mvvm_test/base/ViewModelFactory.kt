@@ -7,7 +7,9 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.mvvm_test.model.Repository
+import com.example.mvvm_test.mvvm.HomeViewModel
 import com.example.mvvm_test.mvvm.LoginViewModel
+import com.example.mvvm_test.room.LocalDataBase
 
 class ViewModelFactory(
     override var mApplication: Application? = null,
@@ -31,7 +33,14 @@ class ViewModelFactory(
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return with(modelClass) {
             when {
-                isAssignableFrom(LoginViewModel::class.java) -> LoginViewModel(repository = mRepository!!, preferences = mSharePrefences!!)
+                isAssignableFrom(LoginViewModel::class.java) -> LoginViewModel(
+                    repository = mRepository!!,
+                    preferences = mSharePrefences!!
+                )
+                isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel(
+                    repository = mRepository!!,
+                    preferences = mSharePrefences!!
+                )
                 else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             } as T
         }

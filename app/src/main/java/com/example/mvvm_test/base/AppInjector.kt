@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import com.example.mvvm_test.api.CoroutineService
 import com.example.mvvm_test.model.Repository
+import com.example.mvvm_test.room.LocalDataBase
 
 object AppInjector {
 
@@ -18,13 +19,15 @@ object AppInjector {
     private lateinit var mSharePreferencesProvider: SharePreferencesProvider
     private lateinit var mResources: Resources
     private lateinit var mViewModelFactory: BaseViewModelFactory
+    private lateinit var localDb: LocalDataBase
 
     fun init(application: Application, factory: ViewModelFactory) {
+        localDb = LocalDataBase.getInstance(application)
         mApplication = application
         mApplication.let {
             mResources = application.resources
             mSharePreferencesProvider = SharePreferencesProvider(it)
-            mRepository = Repository(CoroutineService.getInstance()?.getStores()!!)
+            mRepository = Repository(CoroutineService.getInstance()?.getStores()!!, localDb)
             factory.init(mApplication, mRepository, mResources, mSharePreferencesProvider)
             mViewModelFactory = factory
         }

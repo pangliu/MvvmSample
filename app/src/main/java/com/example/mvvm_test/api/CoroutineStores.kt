@@ -15,4 +15,5 @@ interface CoroutineStores {
 
     @POST(NetworkService.ApiConfig.loginUrl)
     suspend fun flowLogin(@Body request: LoginReq): LoginResp
+
 }
