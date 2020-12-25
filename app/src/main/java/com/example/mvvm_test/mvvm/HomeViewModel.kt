@@ -32,7 +32,7 @@ class HomeViewModel(
                     }
                     is ViewState.Error -> {
                         isLoading.value = false
-                        Log.d("msg", "add account failed")
+                        Log.d("msg", "add account failed ${state.message}")
                     }
                 }
             }
@@ -54,7 +54,7 @@ class HomeViewModel(
                     }
                     is ViewState.Error -> {
                         isLoading.value = false
-                        Log.d("msg", "get account failed")
+                        Log.d("msg", "get account failed: ${state.message}")
                     }
                 }
             }

@@ -13,7 +13,7 @@ import androidx.room.PrimaryKey
     )]
 )
 data class AccountEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int? = 0,
     @ColumnInfo val type: String,
     @ColumnInfo val name: String
 )

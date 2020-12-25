@@ -56,7 +56,7 @@ class Repository(private val apiStores: CoroutineStores, private val localDb: Lo
     }
 
     fun inserAccount(account: String, type: String): Flow<ViewState<Long>>{
-        val accountEntity = AccountEntity(0, account, type)
+        val accountEntity = AccountEntity(2, account, type)
         return flow {
             emit(ViewState.loading())
             val resp = localDb.accountDao().insertAccount(accountEntity)
