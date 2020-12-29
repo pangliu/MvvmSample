@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.mvvm_test.base.SharePreferencesProvider
 import com.example.mvvm_test.model.Repository
 import com.example.mvvm_test.model.ViewState
+import com.example.mvvm_test.room.AccountEntity
 import com.example.mvvm_test.room.LocalDataBase
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -16,10 +17,11 @@ class HomeViewModel(
     val preferences: SharePreferencesProvider
 ): ViewModel() {
     var isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
+    var accountLive: MutableLiveData<MutableList<AccountEntity>> = MutableLiveData()
 
-    fun insertAccount(account: String, type: String) {
+    fun insertAccount(type: String, name: String, phone: String, photo: String) {
         viewModelScope.launch {
-            repository.inserAccount(account, type).collect { state ->
+            repository.inserAccount(type, name, phone, photo).collect { state ->
                 when(state) {
                     is ViewState.Loading -> {
                         isLoading.value = true
@@ -41,7 +43,7 @@ class HomeViewModel(
 
     fun getAllAccount() {
         viewModelScope.launch {
-            repository.getAllAccount().collect { state->
+            repository.getAllAccount().collect { state ->
                 when(state) {
                     is ViewState.Loading->{
                         isLoading.value = true
@@ -49,7 +51,8 @@ class HomeViewModel(
                     }
                     is ViewState.Success ->{
                         isLoading.value = false
-                        Log.d("msg", "data: ${state.data}")
+                        accountLive.value = state.data
+//                        Log.d("msg", "data: ${state.data}")
                         Log.d("msg", "get account success")
                     }
                     is ViewState.Error -> {

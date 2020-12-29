@@ -55,8 +55,13 @@ class Repository(private val apiStores: CoroutineStores, private val localDb: Lo
         }.flowOn(Dispatchers.IO)
     }
 
-    fun inserAccount(account: String, type: String): Flow<ViewState<Long>>{
-        val accountEntity = AccountEntity(2, account, type)
+    fun inserAccount(
+        type: String,
+        account: String,
+        phone: String,
+        photo: String
+    ): Flow<ViewState<Long>>{
+        val accountEntity = AccountEntity(null, type, account, phone, photo)
         return flow {
             emit(ViewState.loading())
             val resp = localDb.accountDao().insertAccount(accountEntity)
@@ -66,9 +71,10 @@ class Repository(private val apiStores: CoroutineStores, private val localDb: Lo
         }.flowOn(Dispatchers.IO)
     }
 
-    fun getAllAccount(): Flow<ViewState<List<AccountEntity>>> {
+    fun getAllAccount(): Flow<ViewState<MutableList<AccountEntity>>> {
         return flow {
             emit(ViewState.loading())
+//            Log.d("msg", "thread name: ${Thread.currentThread().name}")
             val resp = localDb.accountDao().getAllAccount()
             emit(ViewState.success(resp))
         }.catch {

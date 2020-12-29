@@ -7,13 +7,15 @@ import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "Account",
-    indices = [Index(
-        value = ["type", "name"],
-        unique = true
-    )]
+//    indices = [Index(
+//        value = ["type", "name"],
+//        unique = true
+//    )]
 )
 data class AccountEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int? = 0,
+    @PrimaryKey(autoGenerate = true) val id: Int?,
     @ColumnInfo val type: String,
-    @ColumnInfo val name: String
+    @ColumnInfo val name: String,
+    @ColumnInfo val phone: String,
+    @ColumnInfo val photo: String
 )

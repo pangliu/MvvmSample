@@ -13,7 +13,7 @@ interface AccountDao {
     suspend fun getAccount(type: String): List<AccountEntity>
 
     @Query("SELECT * FROM Account")
-    suspend fun getAllAccount(): List<AccountEntity>
+    suspend fun getAllAccount(): MutableList<AccountEntity>
 
     // 當衝突時不寫入
     @Insert(onConflict = OnConflictStrategy.ABORT)
