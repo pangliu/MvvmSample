@@ -119,4 +119,7 @@ dependencies {
     implementation depen.reactivex.rxjava_adapter
     // threeparty
     implementation depen.threeparty.BaseRecyclerViewAdapterHelper
+
+    // Paging Library
+    implementation depen.paging.paging_library
 }

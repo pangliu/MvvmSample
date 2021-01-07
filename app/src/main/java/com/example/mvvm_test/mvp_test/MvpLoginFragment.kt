@@ -23,7 +23,7 @@ class MvpLoginFragment: Fragment(), LoginContract.ILoginView {
         super.onViewCreated(view, savedInstanceState)
         Log.d("msg", "Login onViewCreated")
         val navController = NavHostFragment.findNavController(this)
-        btn_go_to.setOnClickListener {
+        btn_home_page.setOnClickListener {
             navController.navigate(R.id.action_loginFragment_to_homeFragment)
         }
     }

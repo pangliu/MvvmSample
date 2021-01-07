@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mvvm_test.base.AppInjector
 import com.example.mvvm_test.base.invisible
@@ -26,7 +27,6 @@ class HomeFragment: Fragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
-        Log.d("msg", "onCreateView")
         viewModel = AppInjector.obtainViewModel<HomeViewModel>(this)
         return binding.root
     }
@@ -51,18 +51,18 @@ class HomeFragment: Fragment() {
         binding.btnGetAllAccount.onClick {
             viewModel.getAllAccount()
         }
-        viewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if(isLoading) {
                 binding.dbProgress.visible()
             } else {
                 binding.dbProgress.invisible()
             }
-        })
-        viewModel.accountLive.observe(viewLifecycleOwner, { accounts ->
+        }
+        viewModel.accountLive.observe(viewLifecycleOwner) { accounts ->
             Log.d("msg", "accountLive: $accounts")
             accountAdapter.data = accounts
             accountAdapter.notifyDataSetChanged()
-        })
+        }
     }
 
     private fun generateData() {

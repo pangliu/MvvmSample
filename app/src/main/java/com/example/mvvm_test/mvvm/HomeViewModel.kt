@@ -21,7 +21,7 @@ class HomeViewModel(
 
     fun insertAccount(type: String, name: String, phone: String, photo: String) {
         viewModelScope.launch {
-            repository.inserAccount(type, name, phone, photo).collect { state ->
+            repository.insertAccount(type, name, phone, photo).collect { state ->
                 when(state) {
                     is ViewState.Loading -> {
                         isLoading.value = true

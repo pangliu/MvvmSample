@@ -11,6 +11,8 @@
         android:layout_height="wrap_content"
         android:hint="account"
         android:layout_marginTop="100dp"
+        android:layout_marginStart="@dimen/dp_50"
+        android:layout_marginEnd="@dimen/dp_50"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -20,6 +22,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="password"
+        android:layout_marginStart="@dimen/dp_50"
+        android:layout_marginEnd="@dimen/dp_50"
         app:layout_constraintTop_toBottomOf="@id/et_account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -33,14 +37,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
     <Button
-        android:id="@+id/btn_go_to"
-        android:layout_width="wrap_content"
+        android:id="@+id/btn_home_page"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        android:text="go to home page"
+        android:text="Home"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginLeft="@dimen/dp_50"
+        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintTop_toBottomOf="@id/btn_login"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_paging_page"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <Button
+        android:id="@+id/btn_paging_page"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_weight="1"
+        android:text="Paging"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginRight="@dimen/dp_50"
+        app:layout_constraintTop_toBottomOf="@id/btn_login"
+        app:layout_constraintStart_toEndOf="@id/btn_home_page"
         app:layout_constraintEnd_toEndOf="parent" />
-
     <ProgressBar
         android:id="@+id/progress"
         android:layout_width="100dp"

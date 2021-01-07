@@ -55,7 +55,7 @@ class Repository(private val apiStores: CoroutineStores, private val localDb: Lo
         }.flowOn(Dispatchers.IO)
     }
 
-    fun inserAccount(
+    fun insertAccount(
         type: String,
         account: String,
         phone: String,

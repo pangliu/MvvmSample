@@ -50,8 +50,11 @@ class LoginFragment: Fragment() {
             // 呼叫 Coroutine api
             viewMode.coroutineLogin(binding.etAccount.text.toString(), binding.etPasswrod.text.toString())
         }
-        binding.btnGoTo.setOnClickListener {
+        binding.btnHomePage.setOnClickListener {
             navController.navigate(R.id.action_loginFragment_to_homeFragment)
+        }
+        binding.btnPagingPage.setOnClickListener {
+            navController.navigate(R.id.action_loginFragment_to_pagingFragment)
         }
     }
 

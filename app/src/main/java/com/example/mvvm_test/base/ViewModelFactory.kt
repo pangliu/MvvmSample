@@ -1,15 +1,12 @@
 package com.example.mvvm_test.base
 
 import android.app.Application
-import android.content.SharedPreferences
 import android.content.res.Resources
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.mvvm_test.model.Repository
 import com.example.mvvm_test.mvvm.HomeViewModel
 import com.example.mvvm_test.mvvm.LoginViewModel
-import com.example.mvvm_test.room.LocalDataBase
+import com.example.mvvm_test.mvvm.paging.PagingViewModel
 
 class ViewModelFactory(
     override var mApplication: Application? = null,
@@ -38,6 +35,10 @@ class ViewModelFactory(
                     preferences = mSharePrefences!!
                 )
                 isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel(
+                    repository = mRepository!!,
+                    preferences = mSharePrefences!!
+                )
+                isAssignableFrom(PagingViewModel::class.java) -> PagingViewModel(
                     repository = mRepository!!,
                     preferences = mSharePrefences!!
                 )
