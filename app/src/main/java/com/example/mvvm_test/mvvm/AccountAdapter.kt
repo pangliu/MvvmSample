@@ -11,6 +11,7 @@ class AccountAdapter(datas: MutableList<AccountEntity>):
 
     override fun convert(holder: BaseViewHolder, item: AccountEntity) {
         holder.let {
+            it.setText(R.id.tv_id, item.id.toString())
             it.setText(R.id.tv_name, item.name)
             it.setText(R.id.tv_type, item.type)
             it.setText(R.id.tv_phone, item.phone)

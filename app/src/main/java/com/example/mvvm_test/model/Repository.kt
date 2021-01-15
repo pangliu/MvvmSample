@@ -3,26 +3,22 @@ package com.example.mvvm_test.model
 import android.util.Log
 import com.example.mvvm_test.api.CoroutineService
 import com.example.mvvm_test.api.CoroutineStores
-import com.example.mvvm_test.api.NetworkService
+import com.example.mvvm_test.api.RxService
 import com.example.mvvm_test.room.AccountEntity
 import com.example.mvvm_test.room.LocalDataBase
 import io.reactivex.Single
-import io.reactivex.annotations.SchedulerSupport.IO
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import okhttp3.Dispatcher
 import retrofit2.Response
 
 class Repository(private val apiStores: CoroutineStores, private val localDb: LocalDataBase) {
 
     // 使用 Rxjava2
     fun login(account: String, password: String): Single<LoginResp> {
-        val networkService = NetworkService()
+        val networkService = RxService()
         val request = LoginReq(account, password)
 
         return networkService.rxApiStores.login(request).map {
@@ -80,6 +76,10 @@ class Repository(private val apiStores: CoroutineStores, private val localDb: Lo
         }.catch {
             emit(ViewState.error(it.message.orEmpty()))
         }.flowOn(Dispatchers.IO)
+    }
+
+    fun getUnsplashStream() {
+
     }
 
 }

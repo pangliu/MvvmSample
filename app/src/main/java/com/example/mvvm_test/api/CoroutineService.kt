@@ -1,7 +1,6 @@
 package com.example.mvvm_test.api
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -26,15 +25,15 @@ class CoroutineService {
 
     init {
         val client = OkHttpClient.Builder()
-            .connectTimeout(NetworkService.ApiConfig.TIME_OUT_CONNECT.toLong(), TimeUnit.SECONDS)
-            .readTimeout(NetworkService.ApiConfig.TIME_OUT_READ.toLong(), TimeUnit.SECONDS)
-            .writeTimeout(NetworkService.ApiConfig.TIME_OUT_WRITE.toLong(), TimeUnit.SECONDS)
+            .connectTimeout(RxService.ApiConfig.TIME_OUT_CONNECT.toLong(), TimeUnit.SECONDS)
+            .readTimeout(RxService.ApiConfig.TIME_OUT_READ.toLong(), TimeUnit.SECONDS)
+            .writeTimeout(RxService.ApiConfig.TIME_OUT_WRITE.toLong(), TimeUnit.SECONDS)
             .build()
 
         val retrofit = Retrofit.Builder()
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(NetworkService.ApiConfig.WEB_HOST)
+            .baseUrl(RxService.ApiConfig.WEB_HOST)
             .client(client)
             .build()
 

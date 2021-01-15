@@ -1,13 +1,9 @@
 package com.example.mvvm_test
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.runBlocking
+import androidx.appcompat.app.AppCompatActivity
+import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +26,10 @@ class MainActivity : AppCompatActivity() {
 //                log("collect $it")
 //            }
 //        }
+        var dd: Double = 1000.0
+        var dec = DecimalFormat("#.00")
+        val principalMoney = String.format("%.2f", dd)
+        Log.d("msg", "principalMoney: $principalMoney")
     }
 
     fun log(msg: String) = Log.d("msg", "[${Thread.currentThread().name}] $msg")

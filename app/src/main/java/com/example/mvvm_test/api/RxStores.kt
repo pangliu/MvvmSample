@@ -7,8 +7,8 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-interface ApiStores {
+interface RxStores {
 
-    @POST(NetworkService.ApiConfig.loginUrl)
+    @POST(RxService.ApiConfig.loginUrl)
     fun login(@Body request: LoginReq): Single<Response<LoginResp>>
 }
